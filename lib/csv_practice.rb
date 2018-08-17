@@ -18,7 +18,6 @@ def total_medals_per_country(olympic_data)
 
   olympic_data.each do |athlete|
 
-    # binding.pry
     # skip athlete if she/he didn't win medal
     next if athlete['Medal'] == "NA"
 
@@ -26,7 +25,6 @@ def total_medals_per_country(olympic_data)
     medals_country.each do |country|
 
       # if country already exists, iterate method count by one
-      # binding.pry
       if athlete['Team'] == country[:country]
         country[:total_medals] += 1
         existing_country = true
@@ -43,6 +41,14 @@ def total_medals_per_country(olympic_data)
 end
 
 def save_medal_totals(filename, medal_totals)
+
+  headers = medal_totals[0].keys
+
+  CSV.open(filename, 'w', :write_headers => true, :headers => headers) do |csv|
+      medal_totals.each do |country|
+        csv << country.values
+    end
+  end
 
 end
 
@@ -66,6 +72,9 @@ end
 
 # puts load_data('data/athlete_events_sample.csv').class
 
-csv_data = load_data('data/athlete_events.csv')
-
-ap total_medals_per_country(csv_data)
+# csv_data = load_data('data/athlete_events_sample.csv')
+#
+# total_medals = total_medals_per_country(csv_data)
+#
+# ap total_medals
+# save_medal_totals('data/medal_totals_sample.csv', total_medals)
