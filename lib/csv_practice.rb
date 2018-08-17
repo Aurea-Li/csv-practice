@@ -67,8 +67,9 @@ def all_gold_medal_winners(olympic_data)
 
 end
 
-def metals_sorted_by_country(metal_totals)
+def medals_sorted_by_country(medal_totals)
 
+  return medal_totals.sort_by {|country| country[:country] }
 end
 
 def country_with_most_metals(metal_totals)
@@ -83,7 +84,7 @@ end
 
 # csv_data = load_data('data/athlete_events.csv')
 #
-# ap total_medals_per_country(csv_data)
-
-# ap total_medals
-# save_medal_totals('data/medal_totals_sample.csv', total_medals)
+# total_medals =  total_medals_per_country(csv_data)
+# sorted_medals = metals_sorted_by_country(total_medals)
+#
+# ap sorted_medals
