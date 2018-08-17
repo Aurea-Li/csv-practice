@@ -14,6 +14,7 @@ end
 
 def total_medals_per_country(olympic_data)
 
+
   medals_country = []
 
   olympic_data.each do |athlete|
@@ -72,11 +73,25 @@ def medals_sorted_by_country(medal_totals)
   return medal_totals.sort_by {|country| country[:country] }
 end
 
-def country_with_most_metals(metal_totals)
+def country_with_most_medals(medal_totals)
 
+  return medal_totals.max_by {|country| country[:total_medals]}
 end
 
 def athlete_height_in_inches(olympic_data)
+
+  # Copy array
+  olympic_data_copy = Array.new
+  olympic_data.each do |arr|
+    olympic_data_copy << arr.dup
+  end
+
+  olympic_data_copy.each do |athlete|
+
+    athlete['Height'] = athlete['Height'].to_i * 0.4
+  end
+
+  return olympic_data_copy
 
 end
 
