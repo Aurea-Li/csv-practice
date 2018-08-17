@@ -56,6 +56,15 @@ end
 
 def all_gold_medal_winners(olympic_data)
 
+  gold_names = []
+  olympic_data.each do |athlete|
+
+    gold_names << athlete if athlete['Medal'] == 'Gold'
+
+  end
+
+  return gold_names
+
 end
 
 def metals_sorted_by_country(metal_totals)
@@ -72,9 +81,9 @@ end
 
 # puts load_data('data/athlete_events_sample.csv').class
 
-# csv_data = load_data('data/athlete_events_sample.csv')
+# csv_data = load_data('data/athlete_events.csv')
 #
-# total_medals = total_medals_per_country(csv_data)
-#
+# ap total_medals_per_country(csv_data)
+
 # ap total_medals
 # save_medal_totals('data/medal_totals_sample.csv', total_medals)
