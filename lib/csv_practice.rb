@@ -1,14 +1,43 @@
 # csv_practice.rb
-require 'csv'
 require 'awesome_print'
+require 'csv'
+require 'pry'
 
 # Part 1 - CSV Practice
 def load_data(filename)
+
+  return CSV.read(filename, headers: true).map do |line|
+    line.to_h
+  end
 
 end
 
 def total_medals_per_country(olympic_data)
 
+  medals_country = []
+
+  olympic_data.each do |athlete|
+
+    # skip athlete if she/he didn't win medal
+    break if athlete['Medal'] == "NA"
+
+    existing_country = false
+    medals_country.each do |country|
+
+      # if country already exists, iterate method count by one
+      if athlete['Team'] == medals_country[:country]
+        medals_country[:total_medals] += 1
+        existing_country = true
+        break
+      end
+    end
+
+    if !existing_country
+      medals_country << {:country => athlete['Team'], :total_medals => 1}
+    end
+  end
+
+  return medals_country
 end
 
 def save_medal_totals(filename, medal_totals)
@@ -32,3 +61,9 @@ end
 def athlete_height_in_inches(olympic_data)
 
 end
+
+# puts load_data('data/athlete_events_sample.csv').class
+
+csv_data = load_data('data/athlete_events_sample.csv')
+
+ap total_medals_per_country(csv_data)
